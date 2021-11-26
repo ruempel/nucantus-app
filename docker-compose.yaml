@@ -1,0 +1,8 @@
+version: "3.7"
+services:
+  nucantus-app:
+    build: .
+    image: nucantus-app:latest
+    restart: always
+    ports:
+      - "80:80"
