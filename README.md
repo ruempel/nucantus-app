@@ -8,6 +8,8 @@ which song to start next in your karaoke software.
 This app is the user-facing frontend for the [Nucantus Service](https://github.com/ruempel/nucantus-service), which
 provides a song list and karaoke challenge management REST API.
 
+![Node.js workflow status](https://github.com/ruempel/nucantus-app/actions/workflows/node.js.yml/badge.svg)
+
 ## How to Configure
 
 - configure URL of Nucantus Service API in `*.ts` files at `src/environments/`
