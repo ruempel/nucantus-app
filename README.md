@@ -28,6 +28,6 @@ The app will bring up the song list, which lets you change your player name and 
 navigates you to the challenge list, which is updated every few seconds. You can delete finished or unwanted challenges
 there.
 
-![Song List](src/assets/songs.png)
+![Song List](documentation/songs.png)
 
-![Challenge List](src/assets/challenges.png)
+![Challenge List](documentation/challenges.png)

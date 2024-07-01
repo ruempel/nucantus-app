@@ -25,20 +25,16 @@ module.exports = function (config) {
       suppressAll: true // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/nucantus'),
+      dir: require('path').join(__dirname, './coverage/nucantus-app'),
       subdir: '.',
       reporters: [
-        { type: 'html' },
-        { type: 'text-summary' }
+        {type: 'html'},
+        {type: 'text-summary'}
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    port: 9876,
-    colors: true,
-    logLevel: config.LOG_INFO,
-    autoWatch: true,
     browsers: ['ChromeHeadless'],
-    singleRun: true,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+    singleRun: true
   });
 };

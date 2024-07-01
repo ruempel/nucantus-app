@@ -1,0 +1,52 @@
+<mat-toolbar>
+  <span>Challenge a Song or Join an Open Challenge</span>
+  <span class="spacer"></span>
+  <div>
+    <button mat-stroked-button color="primary" routerLink="/challenges">
+      <mat-icon>mic</mat-icon>
+      Challenges
+    </button>
+    <span class="example-spacer"></span>
+    <button mat-stroked-button color="primary" (click)="openDialog()">
+      <mat-icon>person</mat-icon>
+      {{ name }}
+    </button>
+  </div>
+</mat-toolbar>
+
+<!-- TODO filter entries with string match in artist and title -->
+
+<table mat-table [dataSource]="songs">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let song"> {{ song.id }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="artist">
+    <th mat-header-cell *matHeaderCellDef>Artist</th>
+    <td mat-cell *matCellDef="let song"> {{ song.artist }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef>Title</th>
+    <td mat-cell *matCellDef="let song"> {{ song.title }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let song">
+      <button mat-flat-button color="primary" (click)="challenge(song)">Challenge</button>
+      @for (challenge of getChallenges(song); track challenge.id) {
+        <span>
+                <span class="spacer"></span>
+                <button mat-flat-button color="accent" (click)="join(challenge)" class="button-join"> Join
+                <mat-icon>person</mat-icon>
+                  {{ challenge.challengingPlayer }}</button>
+            </span>
+      }
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
