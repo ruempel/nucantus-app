@@ -1,9 +1,3 @@
-import {Routes} from '@angular/router';
-import {SongsComponent} from './components/songs/songs.component';
-import {ChallengesComponent} from './components/challenges/challenges.component';
+import { Routes } from '@angular/router';
 
-export const routes: Routes = [
-  {path: 'songs', component: SongsComponent},
-  {path: 'challenges', component: ChallengesComponent},
-  {path: '', component: SongsComponent}
-];
+export const routes: Routes = [];
