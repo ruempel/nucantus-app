@@ -1,7 +1,6 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {Songs} from './songs';
-import {provideZonelessChangeDetection} from '@angular/core';
-import {provideHttpClientTesting} from '@angular/common/http/testing';
+import {provideRouter} from '@angular/router';
 
 describe('Songs', () => {
   let component: Songs;
@@ -10,7 +9,7 @@ describe('Songs', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Songs],
-      providers: [provideZonelessChangeDetection(), provideHttpClientTesting()]
+      providers: [provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Songs);
@@ -18,7 +17,7 @@ describe('Songs', () => {
     fixture.detectChanges();
   });
 
-  fit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });
