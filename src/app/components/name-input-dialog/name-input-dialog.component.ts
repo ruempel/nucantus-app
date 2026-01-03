@@ -36,7 +36,7 @@ export class NameInputDialogComponent {
   ) {
   }
 
-  @HostListener('window:keyup.Enter', ['$event'])
+  @HostListener('window:keyup.Enter')
   onDialogClick() {
     this.close();
   }
