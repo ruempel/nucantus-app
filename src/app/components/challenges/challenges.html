@@ -1,33 +1,36 @@
 <mat-toolbar>
   <span>Accepted Challenges</span>
   <span class="spacer"></span>
-  <button mat-stroked-button color="primary" routerLink="/songs"><mat-icon>music_note</mat-icon> Songs</button>
+  <button mat-stroked-button color="primary" routerLink="/songs">
+    <mat-icon>music_note</mat-icon>
+    Songs
+  </button>
 </mat-toolbar>
 
-<table mat-table [dataSource]="challenges">
+<table mat-table [dataSource]="challenges()">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>ID</th>
-    <td mat-cell *matCellDef="let challenge"> {{challenge.id}} </td>
+    <td mat-cell *matCellDef="let challenge"> {{ challenge.id }}</td>
   </ng-container>
 
   <ng-container matColumnDef="artist">
     <th mat-header-cell *matHeaderCellDef>Artist</th>
-    <td mat-cell *matCellDef="let challenge"> {{getArtist(challenge.songId)}} </td>
+    <td mat-cell *matCellDef="let challenge"> {{ getArtist(challenge.songId) }}</td>
   </ng-container>
 
   <ng-container matColumnDef="title">
     <th mat-header-cell *matHeaderCellDef>Title</th>
-    <td mat-cell *matCellDef="let challenge"> {{getTitle(challenge.songId)}} </td>
+    <td mat-cell *matCellDef="let challenge"> {{ getTitle(challenge.songId) }}</td>
   </ng-container>
 
   <ng-container matColumnDef="challengingPlayer">
     <th mat-header-cell *matHeaderCellDef>Challenging Player</th>
-    <td mat-cell *matCellDef="let challenge"> {{challenge.challengingPlayer}} </td>
+    <td mat-cell *matCellDef="let challenge"> {{ challenge.challengingPlayer }}</td>
   </ng-container>
 
   <ng-container matColumnDef="joiningPlayer">
     <th mat-header-cell *matHeaderCellDef>Joining Player</th>
-    <td mat-cell *matCellDef="let challenge"> {{challenge.joiningPlayer}} </td>
+    <td mat-cell *matCellDef="let challenge"> {{ challenge.joiningPlayer }}</td>
   </ng-container>
 
   <ng-container matColumnDef="action">
@@ -39,4 +42,9 @@
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr *matNoDataRow>
+    <td [attr.colspan]="displayedColumns.length">
+      No challenges active. Please challenge a song or join an open challenge.
+    </td>
+  </tr>
 </table>

@@ -1,11 +1,23 @@
-import {ApplicationConfig, provideZoneChangeDetection} from '@angular/core';
+import {
+  ApplicationConfig,
+  LOCALE_ID,
+  provideBrowserGlobalErrorListeners,
+  provideZonelessChangeDetection
+} from '@angular/core';
 import {provideRouter} from '@angular/router';
-
 import {routes} from './app.routes';
-import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient} from '@angular/common/http';
+import {registerLocaleData} from '@angular/common';
+import localeDe from '@angular/common/locales/de';
+
+registerLocaleData(localeDe);
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({eventCoalescing: true}), provideRouter(routes), provideHttpClient(),
-    provideAnimationsAsync()]
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZonelessChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient(),
+    {provide: LOCALE_ID, useValue: 'de-DE' }
+  ]
 };

@@ -1,9 +1,9 @@
 import {Routes} from '@angular/router';
-import {SongsComponent} from './components/songs/songs.component';
-import {ChallengesComponent} from './components/challenges/challenges.component';
+import {Songs} from './components/songs/songs';
+import {Challenges} from './components/challenges/challenges';
 
 export const routes: Routes = [
-  {path: 'songs', component: SongsComponent},
-  {path: 'challenges', component: ChallengesComponent},
-  {path: '', component: SongsComponent}
+  {path: 'songs', component: Songs},
+  {path: 'challenges', component: Challenges},
+  {path: '', component: Songs}
 ];
