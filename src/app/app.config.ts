@@ -18,6 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
-    {provide: LOCALE_ID, useValue: 'de-DE' }
+    {provide: LOCALE_ID, useValue: 'de-DE'}
   ]
 };
