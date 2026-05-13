@@ -9,7 +9,8 @@ import {
   MatHeaderCell,
   MatHeaderCellDef,
   MatHeaderRow,
-  MatHeaderRowDef, MatNoDataRow,
+  MatHeaderRowDef,
+  MatNoDataRow,
   MatRow,
   MatRowDef,
   MatTable
@@ -43,40 +44,39 @@ import {Backend} from '../../services/backend';
   styleUrl: './challenges.scss'
 })
 export class Challenges implements OnInit, OnDestroy {
+  readonly displayedColumns: string[] = ['artist', 'title', 'challengingPlayer', 'joiningPlayer', 'action'];
+
   private backend = inject(Backend);
+  private subscriptions: Subscription[] = [];
 
   songs: WritableSignal<Song[]> = signal([]);
   challenges: WritableSignal<Challenge[]> = signal([]);
-  displayedColumns: string[] = ['artist', 'title', 'challengingPlayer', 'joiningPlayer', 'action'];
-  private refreshSubscription: Subscription | undefined;
 
   async ngOnInit(): Promise<void> {
     this.songs.set(await firstValueFrom(this.backend.listSongs()));
-    this.refreshSubscription = timer(0, 5_000).subscribe(() => {
-      this.backend.listAcceptedChallenges().subscribe((challenges: Challenge[]) => {
+    this.subscriptions.push(timer(0, 5_000).subscribe(() => {
+      this.backend.listAcceptedChallenges().subscribe(challenges => {
         this.challenges.set(challenges);
       });
-    });
+    }));
   }
 
   ngOnDestroy(): void {
-    this.refreshSubscription?.unsubscribe();
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   getArtist(songId: number) {
-    const filteredSongs = this.songs().filter(song => song.id === songId);
-    return filteredSongs.length == 1 ? filteredSongs[0]?.artist : '';
+    return this.songs().find(song => song.id === songId)?.artist ?? '';
   }
 
   getTitle(songId: number) {
-    const filteredSongs = this.songs().filter(song => song.id === songId);
-    return filteredSongs.length == 1 ? filteredSongs[0]?.title : '';
+    return this.songs().find(song => song.id === songId)?.title ?? '';
   }
 
   delete(challenge: Challenge) {
     this.backend.deleteChallenge(challenge.id).subscribe(() => {
       // update the challenge list after deleting a challenge
-      this.backend.listAcceptedChallenges().subscribe((challenges: Challenge[]) => {
+      this.backend.listAcceptedChallenges().subscribe(challenges => {
         this.challenges.set(challenges);
       });
     });

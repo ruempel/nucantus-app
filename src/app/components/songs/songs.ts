@@ -46,13 +46,14 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './songs.scss'
 })
 export class Songs implements OnInit {
+  readonly displayedColumns: string[] = ['artist', 'title', 'action'];
+
   private backend = inject(Backend);
   private dialog = inject(MatDialog);
 
   name = signal('Guest');
   songs: WritableSignal<Song[]> = signal([]);
   challenges: WritableSignal<Challenge[]> = signal([]);
-  displayedColumns: string[] = ['artist', 'title', 'action'];
 
   async ngOnInit(): Promise<void> {
     this.songs.set(await firstValueFrom(this.backend.listSongs()));
@@ -78,7 +79,7 @@ export class Songs implements OnInit {
   challenge(song: Song) {
     this.backend.challengePlayer(song.id, this.name()).subscribe(() => {
       // update challenge list after challenging a song
-      this.backend.listOpenChallenges().subscribe((challenges: Challenge[]) => {
+      this.backend.listOpenChallenges().subscribe(challenges => {
         this.challenges.set(challenges);
       });
     });
@@ -87,7 +88,7 @@ export class Songs implements OnInit {
   join(challenge: Challenge) {
     this.backend.joinChallenge(challenge.id, this.name()).subscribe(() => {
       // update the challenge list after joining a challenge
-      this.backend.listOpenChallenges().subscribe((challenges: Challenge[]) => {
+      this.backend.listOpenChallenges().subscribe(challenges => {
         this.challenges.set(challenges);
       });
     });
