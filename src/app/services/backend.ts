@@ -25,7 +25,9 @@ export class Backend {
   }
 
   private listChallenges(state: 'OPEN' | 'ACCEPTED') {
-    return this.http.get<Challenge[]>(this.URL_CHALLENGES + `?state=${state}`);
+    return this.http.get<Challenge[]>(this.URL_CHALLENGES, {
+      params: {state}
+    });
   }
 
   challengePlayer(songId: number, challengingPlayer: string) {
@@ -33,10 +35,10 @@ export class Backend {
   }
 
   joinChallenge(challengeId: number, joiningPlayer: string) {
-    return this.http.put(this.URL_CHALLENGES + `/${challengeId}`, joiningPlayer);
+    return this.http.put(`${this.URL_CHALLENGES}/${challengeId}`, joiningPlayer);
   }
 
   deleteChallenge(challengeId: number) {
-    return this.http.delete(this.URL_CHALLENGES + `/${challengeId}`);
+    return this.http.delete(`${this.URL_CHALLENGES}/${challengeId}`);
   }
 }
