@@ -1,13 +1,15 @@
-import {Component, HostListener, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {
   MAT_DIALOG_DATA,
-  MatDialogActions, MatDialogClose,
+  MatDialogActions,
+  MatDialogClose,
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle
 } from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
-import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
 import {MatButton} from '@angular/material/button';
 
 @Component({
@@ -27,15 +29,10 @@ import {MatButton} from '@angular/material/button';
   styleUrl: './name-input-dialog.scss'
 })
 export class NameInputDialog {
-  name = inject<string>(MAT_DIALOG_DATA);
-  dialogRef = inject(MatDialogRef<NameInputDialog>);
-
-  @HostListener('window:keyup.Enter')
-  onDialogClick() {
-    this.close();
-  }
+  readonly name = signal(inject<string>(MAT_DIALOG_DATA));
+  private readonly dialogRef = inject<MatDialogRef<NameInputDialog, string | undefined>>(MatDialogRef);
 
   close() {
-    this.dialogRef.close(this.name);
+    this.dialogRef.close(this.name());
   }
 }
